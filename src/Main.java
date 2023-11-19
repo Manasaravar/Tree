@@ -9,20 +9,27 @@ public class Main {
         Random random = new Random(0);
         Tree tree = new Tree();
         for (int i = 0; i < size; i++) {
-            tree.insert(random.nextInt(100),tree.getRoot());
+            tree.insert(random.nextInt(100));
         }
-        tree.print(tree.getRoot());
+        tree.print();
         System.out.println();
-        System.out.println("Max: " + tree.maxValue(tree.getRoot()));
-        System.out.println("Min: " + tree.minValue(tree.getRoot()));
-        System.out.println("Summa: " + tree.sum(tree.getRoot()));
-        System.out.println("Enter number of erase:");
+        System.out.println("Max: " + tree.maxValue());
+        System.out.println("Min: " + tree.minValue());
+        System.out.println("Summa: " + tree.sum());
+        System.out.println("Avg: " + tree.avg());
+      /*  System.out.println("Enter number of erase:");
         int numberOfErase = scanner.nextInt();
         tree.erase(tree.getRoot(), numberOfErase);
-        tree.print(tree.getRoot());
+        tree.print();*/
 
-        System.out.println("Counter:\t" + tree.count(tree.getRoot()));
+        //System.out.println("Counter:\t" + tree.count());
+        System.out.println("depth:\t" + tree.depth());
+        tree.printDepth();
         tree.clear();
-
+       /* UniqueTree u_tree = new UniqueTree();
+        for (int i = 0; i < size; i++) {
+            u_tree.insert(random.nextInt(100));
+        }
+        u_tree.print();*/
     }
 }

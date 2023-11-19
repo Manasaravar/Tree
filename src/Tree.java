@@ -1,9 +1,9 @@
 public class Tree {
 
     class Element {
-        int data;
-        private Element left;
-        private Element right;
+        protected int data;
+        protected Element left;
+        protected Element right;
 
         public Element getLeft() {
             return left;
@@ -29,11 +29,11 @@ public class Tree {
         @Override
         protected void finalize() /*throws Throwable*/ {
             // super.finalize();
-            System.out.println("RDestructor:\t" + Integer.toHexString(hashCode()));
+            System.out.println("EDestructor:\t" + Integer.toHexString(hashCode()));
         }
     }
 
-    private Element root;
+    protected Element root;
 
     public Element getRoot() {
         return root;
@@ -48,8 +48,13 @@ public class Tree {
     public Tree(Element root) {
         this.root = root;
     }
-
-    public void insert(int data, Element root) {
+    public double avg(){
+        return (double) sum()/count();
+    }
+    public void insert (int data) {
+        insert(data,root);
+    }
+    private void insert(int data, Element root) {
         if (this.root == null)
             this.root = new Element(data);
         if (root == null)
@@ -72,6 +77,10 @@ public class Tree {
         System.out.print(root.data + "\t");
         print(root.right);
     }
+    public void print() {
+        print(root);
+        System.out.println();
+    }
 
     public int maxValue(Element root) {
         if (root == null) {
@@ -83,6 +92,10 @@ public class Tree {
             else max = maxValue(root.right);
             return max;
         }
+    }
+    public int maxValue(){
+        return maxValue(root);
+
     }
 
     public int minValue(Element root) {
@@ -99,7 +112,13 @@ public class Tree {
         else min = minValue(root.left);
         return min;*/
     }
+    public int minValue(){
+        return minValue(root);
 
+    }
+    public int sum(){
+        return sum(root);
+    }
     public int sum(Element root) {
         if (root == null) {
             return 0;
@@ -123,8 +142,23 @@ public class Tree {
             else
                 return root == null ? 0 : sum() + root.data;
             }*/
+    public void erase(int data){
+        erase(root,data);
+    }
+   /* public void erase (int data,Element root) {
+        if (root == null)
+            return;
+        if (data == root.data) {
+            if(root.left == root.right) {
+                root = null;
+                System.gc();
+            }
+            else {
 
-    public Element erase (Element root, int data) {
+            }
+        }
+    }*/
+   public Element erase (Element root, int data) {
         if (root == null) {
             return null;
         }
@@ -160,23 +194,48 @@ public class Tree {
         }
         return root;
     }
-
     public void clear() {
-        root = null;
-
-        System.out.println("ListClear:\t" + Integer.toHexString(this.hashCode()));
+       root = null;
+       System.gc();
     }
-
-
 
     public int count (Element root) {
         if (root == null)
             return 0;
         else
             return root == null ? 0 : count(root.left) + count(root.right) + 1;
-
     }
 
+    public int count(){
+        return count(root);
     }
+    public int depth(Element root) {
+        if (root == null) {
+            return 0;
+        } else
+            return depth(root.left) > depth(root.right) ? depth(root.left) +1 : depth(root.right) +1;
+    }
+    public int depth() {
+    return depth(root);
+    }
+    public void printDepth(Element root)  {
+        if (root == null)
+            return;
+        if (root.left == root.right)
+            System.out.printf("[ %d : %s - %s ]", root.data, null, null);
+        if (root.left == null && root.right != null)
+            System.out.printf("[ %d : %s - %s ]", root.data, null, root.right.data);
+        if (root.left != null && root.right == null)
+            System.out.printf("[ %d : %s - %s ]", root.data, root.left.data, null);
+        if (root.left != null && root.right != null)
+            System.out.printf("[ %d : %s - %s ]", root.data, root.left.data, root.right.data);
+            printDepth(root.left);
+            printDepth(root.right);
+
+    }
+    public void printDepth () {
+       printDepth(root);
+    }
+}
 
 
