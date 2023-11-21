@@ -17,10 +17,10 @@ public class Main {
         System.out.println("Min: " + tree.minValue());
         System.out.println("Summa: " + tree.sum());
         System.out.println("Avg: " + tree.avg());
-      /*  System.out.println("Enter number of erase:");
+        System.out.println("Enter number of erase:");
         int numberOfErase = scanner.nextInt();
-        tree.erase(tree.getRoot(), numberOfErase);
-        tree.print();*/
+        tree.erase(numberOfErase);
+        tree.print();
 
         //System.out.println("Counter:\t" + tree.count());
         System.out.println("depth:\t" + tree.depth());

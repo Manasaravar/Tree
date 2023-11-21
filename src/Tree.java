@@ -23,13 +23,13 @@ public class Tree {
             this.data = data;
             this.left = null;
             this.right = null;
-            System.out.println("Econstructor:\t" + Integer.toHexString(hashCode()));
+            //System.out.println("Econstructor:\t" + Integer.toHexString(hashCode()));
         }
 
         @Override
         protected void finalize() /*throws Throwable*/ {
             // super.finalize();
-            System.out.println("EDestructor:\t" + Integer.toHexString(hashCode()));
+            // System.out.println("EDestructor:\t" + Integer.toHexString(hashCode()));
         }
     }
 
@@ -42,18 +42,21 @@ public class Tree {
 
     public Tree() {
         this.root = null;
-        System.out.println("TConstructor:\t" + Integer.toHexString(hashCode()));
+        // System.out.println("TConstructor:\t" + Integer.toHexString(hashCode()));
     }
 
     public Tree(Element root) {
         this.root = root;
     }
-    public double avg(){
-        return (double) sum()/count();
+
+    public double avg() {
+        return (double) sum() / count();
     }
-    public void insert (int data) {
-        insert(data,root);
+
+    public void insert(int data) {
+        insert(data, root);
     }
+
     private void insert(int data, Element root) {
         if (this.root == null)
             this.root = new Element(data);
@@ -77,6 +80,7 @@ public class Tree {
         System.out.print(root.data + "\t");
         print(root.right);
     }
+
     public void print() {
         print(root);
         System.out.println();
@@ -93,7 +97,8 @@ public class Tree {
             return max;
         }
     }
-    public int maxValue(){
+
+    public int maxValue() {
         return maxValue(root);
 
     }
@@ -112,13 +117,16 @@ public class Tree {
         else min = minValue(root.left);
         return min;*/
     }
-    public int minValue(){
+
+    public int minValue() {
         return minValue(root);
 
     }
-    public int sum(){
+
+    public int sum() {
         return sum(root);
     }
+
     public int sum(Element root) {
         if (root == null) {
             return 0;
@@ -135,29 +143,60 @@ public class Tree {
          return summa;*/
     }
 
-/*        public int sum() {
+    /*        public int sum() {
 
-            if (root == null)
-                return 0;
-            else
-                return root == null ? 0 : sum() + root.data;
-            }*/
-    public void erase(int data){
-        erase(root,data);
+                if (root == null)
+                    return 0;
+                else
+                    return root == null ? 0 : sum() + root.data;
+                }*/
+   /* public void erase(int data) {
+        erase(root, data);
+    }*/
+
+    /* public void erase (int data,Element root) {
+         if (root == null)
+             return;
+         if (data == root.data) {
+             if(root.left == root.right) {
+                 root = null;
+                 System.gc();
+             }
+             else {
+
+             }
+         }
+     }*/
+    public void erase(int Data)
+    {
+        erase(Data, root, null);
     }
-   /* public void erase (int data,Element root) {
-        if (root == null)
-            return;
+    private void erase(int data, Element root, Element parent) {
+        if (root == null) return;
+        ;
+        erase(data, root.left, root);
+        erase(data, root.right, root);
         if (data == root.data) {
-            if(root.left == root.right) {
+            if (root.left == root.right) {
                 root = null;
+                if (parent != null) {
+                    if (data == parent.left.data) parent.left = null;
+                    if (data == parent.right.data) parent.right = null;
+                }
                 System.gc();
-            }
-            else {
-
+            } else {
+                if (count(root.left) > count(root.right)) {
+                    root.data = maxValue(root.left);
+                    erase(maxValue(root.left), root.left, root);
+                } else {
+                root.data = minValue(root.right);
+                erase(maxValue(root.right), root.right, root);
             }
         }
-    }*/
+    }
+
+}
+
    public Element erase (Element root, int data) {
         if (root == null) {
             return null;
@@ -212,8 +251,11 @@ public class Tree {
     public int depth(Element root) {
         if (root == null) {
             return 0;
-        } else
-            return depth(root.left) > depth(root.right) ? depth(root.left) +1 : depth(root.right) +1;
+        } //else
+            int l_d = depth(root.left) + 1;
+            int r_d = depth(root.right) + 1;
+           // return depth(root.left) > depth(root.right) ? depth(root.left) +1 : depth(root.right) +1;
+        return l_d > r_d ? l_d : r_d;
     }
     public int depth() {
     return depth(root);
